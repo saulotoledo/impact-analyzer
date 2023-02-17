@@ -12,13 +12,9 @@ ENV PYTHONUNBUFFERED=1
 # Setup PS1 terminal
 ENV PS1='\[\033[1;36m\]\u@\h:\w\$\[\033[0m\] '
 
-# Install pip requirements
-COPY requirements.txt .
-RUN pip install --upgrade pip && python -m pip install -r requirements.txt
-
 WORKDIR /workspace
 
-RUN apk add --no-cache git wget jq tree sudo bash bash-completion git-bash-completion colordiff
+RUN apk add --no-cache git wget jq tree sudo bash bash-completion git-bash-completion colordiff alpine-sdk
 
 # Creates a non-root user with an explicit UID and adds permission to access the /workspace folder
 # For more info, please refer to https://aka.ms/vscode-docker-python-configure-containers
@@ -29,6 +25,10 @@ RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /
     && echo "source /bin/git-prompt.sh" >> /etc/bash/bashrc \
     && echo 'export PS1="\u@\h \[\033[32m\]\w\[\033[33m\]\$(__git_ps1 \" (%s)\")\[\033[00m\] $ "' >> /etc/bash/bashrc
 USER appuser
+
+# Install pip requirements
+COPY requirements.txt .
+RUN pip install --upgrade pip && python -m pip install -r requirements.txt
 
 # During debugging, this entry point will be overridden. For more information, please refer to https://aka.ms/vscode-docker-python-debug
 # File wsgi.py was not found. Please enter the Python path to wsgi file.

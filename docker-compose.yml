@@ -1,10 +1,37 @@
 version: '3.4'
 
 services:
-  tests:
-    image: tests
+  impact-analyzer-app:
+    container_name: impact-analyzer-app
+    image: impact-analyzer-app
     build:
       context: .
-      dockerfile: ./Dockerfile
     ports:
       - 8000:8000
+    networks:
+      - impact-analyzer-net
+    volumes:
+      - .:/workspace:cached
+    depends_on:
+      - impact-analyzer-db
+  impact-analyzer-db:
+    image: postgres:11.2
+    container_name: impact-analyzer-db
+    volumes:
+      - impact-analyzer-db-data:/var/lib/postgresql/data
+    networks:
+      - impact-analyzer-net
+    ports:
+      - 5452:5432
+    environment:
+      - POSTGRES_DB=impact-analyzer
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+volumes:
+  impact-analyzer-db-data:
+
+networks:
+  impact-analyzer-net:
+    driver: bridge
+    name: impact-analyzer-net

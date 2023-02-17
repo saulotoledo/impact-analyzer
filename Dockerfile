@@ -16,14 +16,13 @@ ENV PS1='\[\033[1;36m\]\u@\h:\w\$\[\033[0m\] '
 COPY requirements.txt .
 RUN pip install --upgrade pip && python -m pip install -r requirements.txt
 
-WORKDIR /app
-COPY . /app
+WORKDIR /workspace
 
 RUN apk add --no-cache git wget jq tree sudo bash bash-completion git-bash-completion colordiff
 
-# Creates a non-root user with an explicit UID and adds permission to access the /app folder
+# Creates a non-root user with an explicit UID and adds permission to access the /workspace folder
 # For more info, please refer to https://aka.ms/vscode-docker-python-configure-containers
-RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /app \
+RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /workspace \
     && echo '%wheel ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/wheel && adduser appuser wheel \
     && sed -i 's/\/bin\/ash/\/bin\/bash/g' /etc/passwd \
     && wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh -P /bin \
@@ -33,4 +32,4 @@ USER appuser
 
 # During debugging, this entry point will be overridden. For more information, please refer to https://aka.ms/vscode-docker-python-debug
 # File wsgi.py was not found. Please enter the Python path to wsgi file.
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "pythonPath.to.wsgi"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "impact_analyzer.wsgi"]

@@ -1,52 +1,66 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/docker-existing-dockerfile
 {
-  "name": "Existing Dockerfile",
-  "build": {
-    // Sets the run context to one level up instead of the .devcontainer folder.
-    "context": "..",
-    // Update the 'dockerFile' property if you aren't using the standard 'Dockerfile' filename.
-    "dockerfile": "../Dockerfile"
-  },
+    "name": "Existing Docker Compose",
+    // Update the 'dockerComposeFile' list if you have more compose files or use different names.
+    // The .devcontainer/docker-compose.yml file contains any overrides you need/want to make.
+    "dockerComposeFile": [
+        "../docker-compose.yml"
+    ],
+    "service": "impact-analyzer-app",
+    "workspaceFolder": "/workspace",
 
-  "customizations": {
-    "vscode": {
-      // Set *default* container specific settings.json values on container create.
-      "settings": {
-        "files.trimTrailingWhitespace": true,
-        "terminal.integrated.profiles.linux": {
-          "bash": {
-            "path": "bash",
-            "args": []
-          }
-        },
-        "terminal.integrated.defaultProfile.linux": "bash",
-        "terminal.integrated.scrollback": 100000000,
+    "customizations": {
+        "vscode": {
+            // Set *default* container specific settings.json values on container create.
+            "settings": {
+                "files.trimTrailingWhitespace": true,
+                "terminal.integrated.profiles.linux": {
+                    "bash": {
+                        "path": "bash",
+                        "args": []
+                    }
+                },
+                "terminal.integrated.defaultProfile.linux": "bash",
+                "terminal.integrated.scrollback": 100000000,
 
-        // Use a fully POSIX-compatible shell and avoid running a complex ~/.zshrc
-        // for tasks and debug
-        "terminal.integrated.automationProfile.linux": {
-          "path": "/bin/sh"
-        },
+                // Use a fully POSIX-compatible shell and avoid running a complex ~/.zshrc
+                // for tasks and debug
+                "terminal.integrated.automationProfile.linux": {
+                    "path": "/bin/sh"
+                },
 
-        // Open the terminal in the currently opened file's directory:
-        "terminal.integrated.cwd": "${fileDirname}"
-      }
+                // Open the terminal in the currently opened file's directory:
+                "terminal.integrated.cwd": "${fileDirname}"
+            },
+            "extensions": [
+                "batisteo.vscode-django",
+                "codezombiech.gitignore",
+                "donjayamanne.githistory",
+                "eamodio.gitlens",
+                "editorconfig.editorconfig",
+                "mikestead.dotenv",
+                "ms-python.python",
+                "nhoizey.gremlins",
+                "njpwerner.autodocstring",
+                "redhat.vscode-yaml",
+                "waderyan.gitblame"
+            ]
+        }
     }
-  }
 
-  // Features to add to the dev container. More info: https://containers.dev/features.
-  // "features": {},
+    // Features to add to the dev container. More info: https://containers.dev/features.
+    // "features": {},
 
-  // Use 'forwardPorts' to make a list of ports inside the container available locally.
-  // "forwardPorts": [],
+    // Use 'forwardPorts' to make a list of ports inside the container available locally.
+    // "forwardPorts": [],
 
-  // Uncomment the next line to run commands after the container is created.
-  // "postCreateCommand": "cat /etc/os-release",
+    // Uncomment the next line to run commands after the container is created.
+    // "postCreateCommand": "cat /etc/os-release",
 
-  // Configure tool-specific properties.
-  // "customizations": {},
+    // Configure tool-specific properties.
+    // "customizations": {},
 
-  // Uncomment to connect as an existing user other than the container default. More info: https://aka.ms/dev-containers-non-root.
-  // "remoteUser": "devcontainer"
+    // Uncomment to connect as an existing user other than the container default. More info: https://aka.ms/dev-containers-non-root.
+    // "remoteUser": "devcontainer"
 }

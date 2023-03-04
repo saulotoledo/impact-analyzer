@@ -32,4 +32,9 @@ RUN pip install --upgrade pip && python -m pip install -r requirements.txt
 
 # During debugging, this entry point will be overridden. For more information, please refer to https://aka.ms/vscode-docker-python-debug
 # File wsgi.py was not found. Please enter the Python path to wsgi file.
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "impact_analyzer.wsgi"]
+
+# To start the application with the container, use the command below:
+#CMD ["gunicorn", "--bind", "0.0.0.0:8000", "pythoncoding.wsgi"]
+
+# The following command keeps the container alive without starting the application:
+CMD ["sleep", "infinity"]

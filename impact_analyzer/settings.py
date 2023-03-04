@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'rest_framework',
     'tags',
+    'tables',
 ]
 
 MIDDLEWARE = [
@@ -140,3 +141,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Custom settings
+
+TABLE_PROCESSING_BATCH_SIZE = os.environ.get('TABLE_PROCESSING_BATCH_SIZE')

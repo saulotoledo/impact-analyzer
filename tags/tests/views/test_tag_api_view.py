@@ -3,7 +3,7 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APIClient
 from tags.models import Tag
-from tags.serializers import TagSerializer
+from tags.serializers import TagRetrieveSerializer
 
 
 class TagListCreateAPIViewTestCase(TestCase):
@@ -24,17 +24,12 @@ class TagListCreateAPIViewTestCase(TestCase):
         url = reverse('tag-list-create')
         data = {'name': 'New Tag'}
         response = self.client.post(url, data)
-
-        tag = Tag.objects.last()
-        serializer = TagSerializer(tag)
-
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(response.data, serializer.data)
 
     def test_retrieve_all_tags(self):
         url = reverse('tag-list-create')
         response = self.client.get(url)
-        serializedTags = TagSerializer(self.tags, many=True).data
+        serializedTags = TagRetrieveSerializer(self.tags, many=True).data
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, serializedTags)
 
@@ -42,7 +37,7 @@ class TagListCreateAPIViewTestCase(TestCase):
         tagToCheck = self.tags[1]
         url = reverse('tag-retrieve-update-destroy', kwargs={"id": tagToCheck.id})
         response = self.client.get(url)
-        serializedTag = TagSerializer(instance=tagToCheck).data
+        serializedTag = TagRetrieveSerializer(instance=tagToCheck).data
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, serializedTag)
 

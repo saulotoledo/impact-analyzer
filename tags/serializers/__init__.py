@@ -1,3 +1,4 @@
-from .tag_serializer import TagSerializer
+from .tag_retrieve_serializer import TagRetrieveSerializer
+from .tag_create_update_serializer import TagCreateUpdateSerializer
 
-__all__ = ['TagSerializer']
+__all__ = ['TagCreateUpdateSerializer', 'TagRetrieveSerializer']

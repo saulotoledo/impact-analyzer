@@ -4,7 +4,7 @@ from tags.models import Tag
 
 class TagService:
     def get_all_tags(self) -> List[Tag]:
-        return Tag.objects.all()
+        return Tag.objects.filter(depth=1)
 
     def get_tag(self, id: int) -> Tag:
         return Tag.objects.get(pk=id)

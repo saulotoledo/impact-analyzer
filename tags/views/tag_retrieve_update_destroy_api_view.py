@@ -3,7 +3,7 @@ from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from tags.serializers import TagSerializer
+from tags.serializers import TagRetrieveSerializer
 
 
 class TagRetrieveUpdateDestroyAPIView(APIView):
@@ -31,7 +31,7 @@ class TagRetrieveUpdateDestroyAPIView(APIView):
 
     @swagger_auto_schema(
         method='put',
-        request_body=TagSerializer,
+        request_body=TagRetrieveSerializer,
         responses={
             200: 'Success',
             400: 'Bad Request'

@@ -34,9 +34,10 @@ class TableProcessorService:
                 TableEntry.objects.bulk_create(rows, batch_size=self.table_processing_batch_size)
         except Exception as e:
             # TODO: Consider moving the table to the transaction instead of manually triggering the delete below
-            # If the delete fail we will end with inconsistency in the database
+            # If the delete fail we will end with inconsistency in the database.
+            # This approach also increases the pk value on every failure.
             table.delete()
-            return []
+            raise
 
         return rows
 

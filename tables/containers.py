@@ -18,6 +18,11 @@ class TablesContainer(containers.DeclarativeContainer):
         service=table_processor_service,
     )
 
+    table_list_view = providers.Factory(
+        views.TableListAPIView.as_view,
+        serializer_class=serializers.TableSerializer,
+    )
+
     table_retrieve_view = providers.Factory(
         views.TableRetrieveAPIView.as_view,
         serializer_class=serializers.TableSerializer,

@@ -36,6 +36,10 @@ DEBUG = os.environ.get('DEBUG') == 'True'
 
 ALLOWED_HOSTS = []
 
+# The following config is required when using Postgres to avoid the error
+# AttributeError: 'NoneType' object has no attribute 'is_descendant_of'
+# See also https://github.com/django-cms/django-cms/issues/5885
+TREEBEARD_ALPHABET = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_'
 
 # Application definition
 

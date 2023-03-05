@@ -9,7 +9,8 @@ from tags.serializers import TagRetrieveSerializer
 class TagRetrieveUpdateDestroyAPIView(APIView):
     http_method_names = ['get', 'put', 'delete']
     service = None
-    serializer_class = None
+    retrieve_serializer_class = None
+    create_update_serializer_class = None
 
     @swagger_auto_schema(
         responses={
@@ -26,7 +27,7 @@ class TagRetrieveUpdateDestroyAPIView(APIView):
             return Response("invalid id", status=status.HTTP_400_BAD_REQUEST)
 
         tag = self.service.get_tag(id)
-        serializer = self.serializer_class(tag)
+        serializer = self.retrieve_serializer_class(tag)
         return Response(serializer.data)
 
     @swagger_auto_schema(
@@ -44,10 +45,10 @@ class TagRetrieveUpdateDestroyAPIView(APIView):
         """Updates a single tag"""
 
         tag = self.service.get_tag(id)
-        serializer = self.serializer_class(tag, data=request.data, partial=True)
+        serializer = self.create_update_serializer_class(tag, data=request.data, partial=True)
         if serializer.is_valid():
             tag = self.service.update_tag(tag, serializer.validated_data)
-            serializer = self.serializer_class(tag)
+            serializer = self.retrieve_serializer_class(tag)
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

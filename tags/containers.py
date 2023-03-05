@@ -18,6 +18,7 @@ class TagsContainer(containers.DeclarativeContainer):
 
     tag_retrieve_update_destroy_api_view = providers.Factory(
         views.TagRetrieveUpdateDestroyAPIView.as_view,
-        serializer_class=serializers.TagRetrieveSerializer,
+        create_update_serializer_class=serializers.TagCreateUpdateSerializer,
+        retrieve_serializer_class=serializers.TagRetrieveSerializer,
         service=tag_service,
     )

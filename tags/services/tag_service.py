@@ -18,8 +18,14 @@ class TagService:
             return Tag.add_root(**validated_data)
 
     def update_tag(self, tag: Tag, validated_data: Dict) -> None:
+        parent = validated_data.pop('parent_id', None)
+
         for key, value in validated_data.items():
             setattr(tag, key, value)
+
+        if parent:
+            tag.move(parent, 'sorted-child')
+
         tag.save()
 
     def delete_tag(self, tag: Tag) -> None:

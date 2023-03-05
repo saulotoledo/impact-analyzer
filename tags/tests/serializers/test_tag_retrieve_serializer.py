@@ -19,19 +19,23 @@ class TagRetrieveSerializerTestCase(TestCase):
         expected_output = {
             'id': self.root_tag.id,
             'name': self.root_tag.name,
+            'parent_id': None,
             'children': [
                 {
                     'id': self.first_child.id,
                     'name': self.first_child.name,
+                    'parent_id': self.root_tag.id,
                     'children': []
                 },
                 {
                     'id': self.second_child.id,
                     'name': self.second_child.name,
+                    'parent_id': self.root_tag.id,
                     'children': [
                         {
                             'id': self.first_grandchild.id,
                             'name': self.first_grandchild.name,
+                            'parent_id': self.second_child.id,
                             'children': []
                         }
                     ]

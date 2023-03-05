@@ -25,6 +25,7 @@ class TableEntry(models.Model):
             models.UniqueConstraint(
                 'line',
                 'column',
+                'table_id',
                 name='line_column_unique',
             ),
         ]

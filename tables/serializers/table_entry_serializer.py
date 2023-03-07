@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from tables.models import TableEntry
+from tags.models import Tag
 
 
 class TableEntrySerializer(serializers.ModelSerializer):
@@ -7,6 +8,10 @@ class TableEntrySerializer(serializers.ModelSerializer):
     line = serializers.ReadOnlyField()
     column = serializers.ReadOnlyField()
     value = serializers.ReadOnlyField()
+    tags = serializers.PrimaryKeyRelatedField(
+        many=True, queryset=Tag.objects.all(), required=False
+    )
+
 
     class Meta:
         model = TableEntry
@@ -28,7 +33,7 @@ class TableEntrySerializer(serializers.ModelSerializer):
                 'line': entry.line,
                 'column': entry.column,
                 'value': entry.value,
-                'tags': []
+                'tags': [tag.id for tag in entry.tags.all()],
             })
 
         return result
